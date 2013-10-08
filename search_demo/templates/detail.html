@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
+	<div class="container">
+		<p>中文名：{{product.product_name }}</p>
+		<p>英文名：{{product.product_english_name}}</p>
+		<p>产品号：{{product.product_no}}</p>
+		{% if product.cas_no %}
+		<p>CAS号：{{product.cas_no}}</p>
+		<p>产品图片：</p>
+		<img src="{{product.moleclar_struction_formation_path}}" />
+		{% endif %}
+		<div class="container">
+			详细描述：
+			{{prodct.description}}
+		</div>
+		<p><a href="{{product.url_path}}">查看源链接</a></p>
+	</div>
+{% endblock %}

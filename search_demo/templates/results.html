@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block custom_css %}
+	<style>
+		.items {
+			margin-bottom: 15px;
+		}
+	</style>
+{% endblock %}
+{% block body %}
+	<div class="container">
+		<div id="search_form_wrap" class="row" style="padding-top: 20px;">
+			<form method="post" action="" class="form-inline offset1">
+				<input type="text" name="keyword" value="BSA" />&nbsp;
+				<input type="submit" name="submitKey" class="btn btn-primary" value="搜索" />
+			</form>
+		</div>
+		<div id="search_stats" class="row">
+			<p class="offset1">找到<b>9</b>个符合要求的结果：</p>
+			<hr/>
+		</div>
+		<div id="result_list" class="row">
+			{% for res in results %}
+			<div class="container item_container items">
+				<div class="row">
+					<table class="span8 offset1">
+						<tbody>
+							<tr>
+								<td><a href="{{res.url_path}}" target="_blank">{{res.product_english_name}}&nbsp;[{{res.product_name}}]</a>&nbsp;<i class="icon-file"></i></td>
+								<td>{{res.product.name}}</td>
+								<td>CAS: {{res.cas_no}}</td>
+								<td>产品号: {{res.product_no}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

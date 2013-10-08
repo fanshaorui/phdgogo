@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block body %}
+	<div class="container">
+		<div class="row" style="height: 300px;">
+			&nbsp;
+		</div>
+		<div class="row">
+			<div class="logo span5 offset4">
+				<div style="padding-left: 17%;">
+					<a href="/">
+						<img src="/static/img/logo.jpg" alt="Phd18.com" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<div id="form_wrap" class="row">
+			<form id="searchForm" class="form-inline offset4" method="get" action="/search">
+				{%csrf_token%}
+				{{form.keyword}} &nbsp;
+				<input type="submit" name="submitKey" class="btn btn-primary" value="搜索" />
+			</form>
+		</div>
+		<div id="stat_wrap" class="row">
+			<div class="span5 offset4" >
+				<p style="padding: 50px;">已收录<strong>50</strong>厂商，总共<strong>5032594</strong>个产品</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
