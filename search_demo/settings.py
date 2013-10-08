@@ -1,6 +1,6 @@
 # Django settings for search_demo project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -115,6 +115,8 @@ TEMPLATE_DIRS = (
     '/home/kid143/dev_dir/search_demo/search_demo/templates/'
 )
 
+FILE_UPLOAD_TEMP_DIR = '/tmp'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,6 +130,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'south',
     'regeant',
+    'providers',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
