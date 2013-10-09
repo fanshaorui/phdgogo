@@ -2,6 +2,7 @@
 
 
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -14,7 +15,9 @@ class Provider(models.Model):
         @since 1.0
     '''
 
-    name = models.CharField(max_length=200)
+    userref = models.ForeignKey(User, 'fk_provider_user', unique=True)
+    name = models.CharField(
+        max_length=200, null=True, blank=True, default=None)
     address = models.TextField(
         blank=True, null=True, default=None)
     contact = models.TextField(blank=True, default=None)
@@ -40,6 +43,7 @@ class ProviderProduct(models.Model):
     producer_name = models.CharField(max_length=255, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)
+    provider = models.ForeignKey(Provider, blank=True, null=True, default=None)
 
     def __unicode__(self):
         return "<ProviderProduct: %s>" % self.name
