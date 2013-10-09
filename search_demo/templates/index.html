@@ -1,29 +1,47 @@
 {% extends "base.html" %}
+{% block custom_css%}
+{% endblock %}
+{% block custom_js %}
+<script src="/static/js/global.js"></script>
+{% endblock %}
+{% block title%}
+phdgogo-试剂采购搜索
+{% endblock %}
 {% block body %}
-	<div class="container">
-		<div class="row" style="height: 300px;">
-			&nbsp;
-		</div>
+	<div class="container" id="indexbody">
 		<div class="row">
-			<div class="logo span5 offset4">
-				<div style="padding-left: 17%;">
+			<div class="logo span8 offset3" >
+				<div id="logo">
 					<a href="/">
-						<img src="/static/img/logo.jpg" alt="Phd18.com" />
+						<img src="/static/img/phdgogo.jpg" alt="phdgogo.com" />
 					</a>
 				</div>
 			</div>
 		</div>
-		<div id="form_wrap" class="row">
-			<form id="searchForm" class="form-inline offset4" method="get" action="/search">
-				{%csrf_token%}
-				{{form.keyword}} &nbsp;
-				<input type="submit" name="submitKey" class="btn btn-primary" value="搜索" />
+		<div class="row">
+		<div class="input-append">
+			<form id="appendedInputButton" id="searchForm" class="form-inline offset3" method="get" action="/search">
+				{{form.keyword}}
+				<button type="submit" name="submitKey" class="btn"><i class="icon-search"></i></button>
 			</form>
 		</div>
-		<div id="stat_wrap" class="row">
-			<div class="span5 offset4" >
-				<p style="padding: 50px;">已收录<strong>50</strong>厂商，总共<strong>5032594</strong>个产品</p>
+		</div>
+		<div class="row">
+			<div class="span8 offset3" >
+				<p>查试剂、选试剂、买试剂。自动生成采购清单。</p>
+				<p>已收录<strong>234</strong>个品牌,总共<strong>15032594</strong>种实验室产品,以及<strong>324</strong>家代理商联系方式</p>
 			</div>
 		</div>
 	</div>
+<div class="navbar navbar-fixed-bottom">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <li><a href="#">帮忙分享phdgogo</a></li>
+    </ul>
+    <ul class="nav pull-right">
+    <li><a href="#">供应商</a></li>
+    <li><a href="#">全部品牌</a></li>
+    </ul>
+  </div>
+</div>
 {% endblock %}
