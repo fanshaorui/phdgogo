@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block custom_css%}
+{% endblock %}
+{% block custom_js %}
+<script src="/static/js/global.js"></script>
+{% endblock %}
+{% block title%}
+phdgogo-试剂采购搜索-供应商后台首页
+{% endblock %}
+{% block body %}
+<div class="container">
+<div class="row">
+<div class="span8 offset2">
+<p class="text-left"><red>phdgogo.com供应商管理后台</red></p>
+<p class="text-left">你好,{{user.username}}</red></p>
+<ul class="nav nav-tabs">
+  <li class="active">
+    <a href="#">首页</a>
+  </li>
+  <li><a href="{% url "providers.views.providerinfo"%}">供应商信息</a></li>
+  <li><a href="{% url "providers.views.logout_view" %}">退出登陆</a></li>
+</ul>
+</div>
+</div>
+	<div class="row">
+	<div class="span6 offset2">
+	<h4>厂商列表</h4>
+	<p>请勾选贵公司能销售的厂商名称。</p>
+	<p><red>切勿勾选贵公司无法即时供货的品牌,一旦用户投诉,我们会强制取消您勾选的品牌。</red></p>
+	<hr>
+	<form method="POST">
+		{% csrf_token %}
+		{% for producer in producers %}
+		 {% if producer in chosen_producers %}
+		 <label class="checkbox">
+		  <input type="checkbox" name="choose" value="{{producer.pk}}" checked="checked">
+		  {{producer.name}}
+		</label>
+		 {% else %}
+		 <label class="checkbox">
+		  <input type="checkbox" name="choose" value="{{producer.pk}}">
+		  {{producer.name}}
+		</label>
+		 {% endif %}
+		{% endfor %}
+	<hr>
+	<input type="submit" class="btn btn-info">
+	{% if msg %}
+	<div class="alert alert-success">
+	<p>{{msg}}</p>
+	</div>
+	{% endif %}
+	</div>
+	</div>
+</div>
+{% endblock %}

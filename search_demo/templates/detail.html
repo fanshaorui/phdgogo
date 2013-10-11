@@ -1,18 +1,61 @@
 {% extends "base.html" %}
+{% block custom_css%}
+{% endblock %}
+{% block custom_js %}
+<script src="/static/js/global.js"></script>
+{% endblock %}
+{% block title%}
+phdgogo-试剂采购搜索-供应商联系方式
+{% endblock %}
 {% block body %}
-	<div class="container">
-		<p>中文名：{{product.product_name }}</p>
-		<p>英文名：{{product.product_english_name}}</p>
-		<p>产品号：{{product.product_no}}</p>
-		{% if product.cas_no %}
-		<p>CAS号：{{product.cas_no}}</p>
-		<p>产品图片：</p>
-		<img src="{{product.moleclar_struction_formation_path}}" />
-		{% endif %}
-		<div class="container">
-			详细描述：
-			{{prodct.description}}
-		</div>
-		<p><a href="{{product.url_path}}">查看源链接</a></p>
-	</div>
+	<div class="navbar navbar-fixed-top">
+ <div class="navbar-inner">
+ <div class="container">
+ <a class="brand" href="#"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
+ <form class="navbar-form pull-left">
+     <div class="input-append">
+         <input type="text" class="span4" placeholder="氨基苯并咪唑">
+         <button type="submit" class="btn"><i class="icon-search"></i></button>
+       </div>
+ </form>
+   <ul class="nav pull-right">
+   <li><a href="#">帮忙分享phdgogo</a></li>
+   </ul>
+   </div>
+ </div>
+</div>
+<div class="container">
+<div class="row">
+<div class="span6 offset3">
+{{product.product_english_name}}<img src="{{product.producer.logo_path}}" class="companylogoimg">货号:{{product.product_no}}
+<hr>
+</div>
+</div>
+<div class="row">
+<div class="span6 offset3">
+<table class="table table-hover">
+<thead>
+<tr>
+<td>公司名称</td>
+<td>地区</td>
+<td>联系电话</td>
+<td>邮箱</td>
+<td>QQ</td>
+</tr>
+</thead>
+<tbody>
+	{% for provider in product.producer.providers.all %}
+<tr>
+<td>{{ provider.name }}</td>
+<td>{{ provider.address }}</td>
+<td>{{ provider.phonenumber }}</td>
+<td>{{ provider.userref.email }}</td>
+<td>{{ provider.qqnumber }}</td>
+</tr>
+	{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
 {% endblock %}

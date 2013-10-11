@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block custom_css%}
+{% endblock %}
+{% block custom_js %}
+<script src="/static/js/global.js"></script>
+{% endblock %}
+{% block title%}
+phdgogo-试剂采购搜索-修改信息
+{% endblock %}
+{% block body %}
+<div class="container">
+<div class="row">
+<div class="span8 offset2">
+<p class="text-left"><red>phdgogo.com供应商管理后台</red></p>
+<p class="text-left">你好,{{user.username}}</red></p>
+<ul class="nav nav-tabs">
+  <li>
+    <a href="{% url "providers.views.index" %}">首页</a>
+  </li>
+  <li class="active"><a href="#">供应商信息</a></li>
+  <li><a href="{% url "providers.views.logout_view" %}">退出登陆</a></li>
+</ul>
+</div>
+</div>
+	<div class="row">
+	<div class="span6 offset2">
+		<form class="form-horizontal" method="POST">
+			{% csrf_token %}
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">公司名称</label>
+		    <div class="controls">
+		      {{form.provider_name}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">密码</label>
+		    <div class="controls">
+		      {{form.password}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">再次输入密码</label>
+		    <div class="controls">
+		      {{form.repeat_password}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">联系邮件</label>
+		    <div class="controls">
+		      {{form.email}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">联系电话</label>
+		    <div class="controls">
+		      {{form.phonenumber}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">联系QQ</label>
+		    <div class="controls">
+		      {{form.qqnumber}}
+		    </div>
+		  </div>
+		
+	<hr>
+	<button class="btn btn-info" type="submit">保存</button>
+	</form>
+	</div>
+	</div>
+</div>
+{% endblock %}

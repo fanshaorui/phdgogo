@@ -15,15 +15,16 @@ class Provider(models.Model):
         @since 1.0
     '''
 
-    userref = models.ForeignKey(User, 'fk_provider_user', unique=True)
+    userref = models.ForeignKey(User, related_name='fk_provider_user', unique=True)
     name = models.CharField(
         max_length=200, null=True, blank=True, default=None)
     address = models.TextField(
         blank=True, null=True, default=None)
     contact = models.TextField(blank=True, default=None)
+    phonenumber=models.BigIntegerField(blank=True,default=None)
+    qqnumber=models.BigIntegerField(blank=True,default=None)
     site_url = models.URLField(blank=True, null=True, default=None)
     email = models.EmailField(blank=True, null=True, default=None)
-
     def __unicode__(self):
         return "<Provider: %s>" % self.name
 
