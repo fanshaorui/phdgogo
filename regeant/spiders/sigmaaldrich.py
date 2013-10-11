@@ -106,14 +106,14 @@ class SigmaaldrichSpider(CrawlSpider):
 
 class JKCrawlerSpider(CrawlSpider):
     name = "jk"
-    allowed_domains = ['http://www.jkchemical.com']
+    allowed_domains = ['www.jkchemical.com']
     start_urls = [
         'http://www.jkchemical.com/SiteMap.aspx?language=ch'
         ]
 
     rules =(
         Rule(SgmlLinkExtractor(
-            allow=('/CH/product/', )),callback='parse_item', follow=True),
+            allow=('/CH/products/', )),callback='parse_item'),
         Rule(SgmlLinkExtractor(allow=()), follow=True)
     )
 
@@ -153,7 +153,7 @@ class JKCrawlerSpider(CrawlSpider):
             new_brand.name = brand
             new_brand.description = ' '.join((brand, "scraped from J&K"))
             new_brand.save()
-            self.brands[brand, new_brand]
+            self.brands[brand] = new_brand
             i['brand'] = new_brand
         else:
             i['brand'] = self.brands[brand]

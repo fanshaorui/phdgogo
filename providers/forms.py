@@ -36,6 +36,7 @@ class ProviderInfoForm(forms.Form):
 
 
 class ProviderRegisterForm(forms.Form):
+
     ''' ProviderRegisterForm
         @author kid143
         @version 0.0.1

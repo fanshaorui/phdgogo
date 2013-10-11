@@ -9,6 +9,7 @@ from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import Q, Max
@@ -40,7 +41,7 @@ def register(request):
             return render_to_response(
                 "success.html", 
                 RequestContext(request, dict(msg={
-                    'type': 'success', 'info': 'register success!'})))
+                    'type': 'success', 'info': 'register success!',})))
         else:
             return render_to_response(
                 "fail.html", 
