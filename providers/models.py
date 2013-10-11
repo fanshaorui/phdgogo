@@ -15,8 +15,7 @@ class Provider(models.Model):
         @since 1.0
     '''
 
-    userref = models.ForeignKey(
-        User, related_name='fk_provider_user', unique=True)
+    userref = models.ForeignKey(User, 'fk_provider_user', unique=True)
     name = models.CharField(
         max_length=200, null=True, blank=True, default=None)
     address = models.TextField(
