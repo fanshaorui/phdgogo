@@ -3,5 +3,6 @@
 *.DS_Store
 *._.DS_Store
 *.pyc
+/search_demo/settings.py
 
 
