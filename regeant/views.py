@@ -34,7 +34,16 @@ def search(request):
             'res_num': query.count()}))
 
 
-def detail(request, product_pk):
-    product = get_object_or_404(Regeant, product_pk)
-    return render_to_response("detail.html", RequestContext(
-        request, {'product': product}))
+def detail(request,product_pk):
+    #print product_pk
+    product = get_object_or_404(Regeant,pk=product_pk)
+    cart_list=request.session.get("cart",None)
+    if cart_list is None:
+    	cart_info=False
+    	return render_to_response("detail.html", RequestContext(request, {'product': product,'cart_info':cart_info}))
+    if product_pk in cart_list:
+    	cart_info=True
+    	return render_to_response("detail.html", RequestContext(request, {'product': product,'cart_info':cart_info}))
+    else:
+    	cart_info=False
+    return render_to_response("detail.html", RequestContext(request, {'product': product,'cart_info':cart_info}))
