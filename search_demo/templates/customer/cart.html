@@ -11,15 +11,15 @@ phdgogo-试剂采购搜索-采购清单
 <div class="navbar navbar-fixed-top">
  <div class="navbar-inner">
  <div class="container">
- <a class="brand" href="#"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
+ <a class="brand" href="{% url "regeant.views.index"%}"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
  <form class="navbar-form pull-left">
      <div class="input-append">
-         <input type="text" class="span4" placeholder="氨基苯并咪唑">
+         <input type="text" class="span4">
          <button type="submit" class="btn"><i class="icon-search"></i></button>
        </div>
  </form>
    <ul class="nav pull-right">
-   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.totalitem}}</span></a></li>
+   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
    <li><a href="#">帮忙分享phdgogo</a></li>
    </ul>
    </div>

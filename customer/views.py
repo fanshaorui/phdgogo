@@ -25,26 +25,22 @@ def cart_view(request):
 
 def add_cart(request,pk):
 	cart=request.session.get("cart",None)
-	totalitem=request.session.get("totalitem",None)
 	if not cart:
 		cart=[]
 		cart.append(pk)
 		request.session["cart"]=cart
-		request.session["totalitem"]=1
 	else:
 		for pk_cart in cart:
 			if pk==pk_cart:
 				return cart_view(request)
 		cart.append(pk)
 		request.session["cart"]=cart
-		totalitem=totalitem+1
 		print "here"
 	return cart_view(request)
 
 def clean_cart(request):
 	cart=[]
 	request.session["cart"]=cart
-	request.session["totalitem"]=0
 	c=RequestContext(request,locals())
 	return render_to_response("customer/cart.html",c)
 

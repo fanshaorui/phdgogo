@@ -6,7 +6,7 @@
 <div class="navbar navbar-fixed-top">
  <div class="navbar-inner">
  <div class="container">
- <a class="brand" href="#"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
+ <a class="brand" href="{% url "regeant.views.index"%}"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
  <form class="navbar-form pull-left" method="get" action="/search">
      <div class="input-append">
      	 {% csrf_token %}
@@ -15,7 +15,7 @@
        </div>
  </form>
    <ul class="nav pull-right">
-   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.totalitem}}</span></a></li>
+   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
    <li><a href="#">帮忙分享phdgogo</a></li>
    </ul>
    </div>
