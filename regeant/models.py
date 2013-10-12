@@ -89,7 +89,8 @@ class Regeant(models.Model):
             'product_abbr_eng_name': 100,
             'description': 10
         },
-        mode='SPH_MATCH_PHRASE',
+        mode='SPH_MATCH_EXTENDED2',
+        rank_mode='SPH_RANK_SPH04',
         sort_mode='SPH_SORT_RELEVANCE'
     )
 
