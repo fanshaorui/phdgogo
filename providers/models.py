@@ -15,16 +15,25 @@ class Provider(models.Model):
         @since 1.0
     '''
 
-    userref = models.ForeignKey(User, related_name='fk_provider_user', unique=True)
+    userref = models.ForeignKey(
+        User, related_name='fk_provider_user', unique=True)
     name = models.CharField(
         max_length=200, null=True, blank=True, default=None)
     address = models.TextField(
         blank=True, null=True, default=None)
     contact = models.TextField(blank=True, default=None)
-    phonenumber=models.BigIntegerField(blank=True,default=None)
-    qqnumber=models.BigIntegerField(blank=True,default=None)
-    site_url = models.URLField(blank=True, null=True, default=None)
-    email = models.EmailField(blank=True, null=True, default=None)
+    phonenumber = models.BigIntegerField(
+        blank=True, default=None)
+    qqnumber = models.BigIntegerField(
+        blank=True, default=None)
+    site_url = models.URLField(
+        blank=True, null=True, default=None)
+    email = models.EmailField(
+        blank=True, null=True, default=None)
+
+    def __eq__(self, other):
+        return self.id == other.id
+
     def __unicode__(self):
         return "<Provider: %s>" % self.name
 
@@ -44,7 +53,8 @@ class ProviderProduct(models.Model):
     producer_name = models.CharField(max_length=255, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)
-    provider = models.ForeignKey(Provider, blank=True, null=True, default=None)
+    provider = models.ForeignKey(
+        Provider, blank=True, null=True, default=None)
 
     def __unicode__(self):
         return "<ProviderProduct: %s>" % self.name
@@ -65,7 +75,8 @@ class Area(models.Model):
     name = models.CharField(max_length=100)
     tree_path = models.CharField(
         max_length=255, null=True, default=None, blank=True)
-    parent = models.IntegerField(null=True, blank=True, default=None)
+    parent = models.IntegerField(
+        null=True, blank=True, default=None)
 
     def get_parent(self):
         return self.__class__.objects.filter(id=self.parent)

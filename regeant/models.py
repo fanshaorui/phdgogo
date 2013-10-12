@@ -4,6 +4,7 @@
 from django.db import models
 from scrapy.contrib.djangoitem import DjangoItem
 from djangosphinx.models import SphinxSearch
+from providers.models import Provider
 
 # Create your models here.
 
@@ -15,6 +16,9 @@ class Producer(models.Model):
     logo_path = models.URLField(blank=True)
     country = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
+
+    providers = models.ManyToManyField(
+        Provider, related_name='provider_relation_1')
 
     def __eq__(self, other):
         '''' override "=="" operator '''
