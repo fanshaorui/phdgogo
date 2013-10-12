@@ -19,7 +19,8 @@ def index(request):
 def search(request):
     keyword = request.GET.get('keyword')
     form = SearchForm({'keyword': keyword})
-    results = Regeant.search.query(keyword)
+    query = Regeant.search.query(keyword)
+    results = query.order_by('@relevance')
     producers = set()
     for res in results:
         producers.add(res.producer)
@@ -30,7 +31,7 @@ def search(request):
             'keyword': keyword,
             'results': results,
             'producer_quant': len(producers),
-            'res_num': len(results)}))
+            'res_num': query.count()}))
 
 
 def detail(request, product_pk):
