@@ -20,7 +20,7 @@ def search(request):
     keyword = request.GET.get('keyword')
     form = SearchForm({'keyword': keyword})
     query = Regeant.search.query(keyword)
-    results = query.order_by('@relevance')
+    results = query.order_by('@rank', '@relevance')
     producers = set()
     for res in results:
         producers.add(res.producer)
