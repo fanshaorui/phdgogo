@@ -32,7 +32,7 @@ phdgogo-试剂采购搜索-供应商联系方式
 {% if cart_info %}
 <button class="btn btn-info disabled">已加入清单</button>
 {% else %}
-<a href="{% url "customer.views.add_cart" product.pk %}"class="btn btn-info">加入清单</a>
+<a href="{% url "customer.views.add_cart" product.id %}"class="btn btn-info">加入清单</a>
 {% endif %}
 <hr>
 </div>

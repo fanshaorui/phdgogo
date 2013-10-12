@@ -43,7 +43,7 @@
 	<div>
 	<p id="muteurl">{{result.url_path}}</p>
 	<p id="productinfo">{{result.product_name}} | CAS:{{result.cas_no}} | {{result.brand.name}}<img src="{{result.producer.logo_path}}" class="companylogoimg">货号:{{result.product_no}}</p>
-	<p>共有<span class="badge badge-important">{{result.producer.providers.all|length}}</span>家供应商提供本产品,<a href="{% url "regeant.views.detail" {{result.pk}}%}"  target="_blank">查看联系方式</a></p>
+	<p>共有<span class="badge badge-important">{{result.producer.providers.all|length}}</span>家供应商提供本产品,<a href="{% url "regeant.views.detail" {{result.id}}%}"  target="_blank">查看联系方式</a></p>
 	</div>
 	</div>
 	<div class="span1">
