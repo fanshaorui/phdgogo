@@ -75,19 +75,18 @@ class Regeant(models.Model):
     url_path = models.URLField()
     wiki = models.TextField(blank=True)
     search = SphinxSearch(
-        #weights={
-        #    'product_name': 100,
-        #    'product_english_name': 100,
-        #    'producer_name': 80,
-        #    'product_no': 100,
-        #    'cas_no': 90,
-        #    'product_abbr_name': 70,
-        #    'product_abbr_eng_name': 70,
-        #    'description': 60,
-        #    'original_html': 50
-        #},
-        #mode='SPH_MATCH_EXTENDED2',
-        #rank_mode='SPH_RANK_MATCHANY'
+        weights={
+            'product_name': 100,
+            'product_english_name': 100,
+            'producer_name': 80,
+            'product_no': 100,
+            'cas_no': 90,
+            'product_abbr_name': 70,
+            'product_abbr_eng_name': 70,
+            'description': 60
+        },
+        mode='SPH_MATCH_EXTENDED2',
+        rank_mode='SPH_RANK_MATCHANY'
     )
 
     @property
