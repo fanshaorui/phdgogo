@@ -25,7 +25,7 @@ def search(request):
     providers = set()
     for res in results:
         producers.add(res.producer)
-        providers.update(res.producer.providers)
+        providers.update(res.producer.providers.all())
 
     return render_to_response("results.html", RequestContext(
         request, {
