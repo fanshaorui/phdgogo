@@ -90,8 +90,8 @@ class Regeant(models.Model):
             'description': 10
         },
         mode='SPH_MATCH_EXTENDED2',
-        rank_mode='SPH_RANK_SPH04',
-        sort_mode='SPH_SORT_RELEVANCE'
+        rankmode='SPH_RANK_SPH04',
+        sortmode='SPH_SORT_RELEVANCE'
     )
 
     @property
