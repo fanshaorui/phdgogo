@@ -54,6 +54,7 @@ phdgogo-试剂采购搜索
   <div class="navbar-inner">
     <ul class="nav">
       <li><a href="#">帮忙分享phdgogo</a></li>
+      <li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.totalitem}}</span></a></li>
     </ul>
     <ul class="nav pull-right">
 <<<<<<< HEAD
