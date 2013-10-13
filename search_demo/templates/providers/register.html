@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block custom_css%}
+{% endblock %}
+{% block custom_js %}
+<script src="/static/js/global.js"></script>
+{% endblock %}
+{% block title%}
+phdgogo-试剂采购搜索-供应商注册
+{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="span5 offset3">
+		<p class="text-center"><red>phdgogo.com供应商注册页</red></p>
+		<form class="form-horizontal" method="POST">
+			{% csrf_token %}
+		  <div class="control-group">
+		    <label class="control-label">用户名</label>
+		    <div class="controls">
+		      {{form.username}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">公司名称</label>
+		    <div class="controls">
+		      {{form.provider_name}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">密码</label>
+		    <div class="controls">
+		      {{form.password}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">再次输入密码</label>
+		    <div class="controls">
+		      {{form.repeat_password}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">联系邮件</label>
+		    <div class="controls">
+		      {{form.email}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">联系电话</label>
+		    <div class="controls">
+		      {{form.phonenumber}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">联系QQ</label>
+		    <div class="controls">
+		      {{form.qqnumber}}
+		    </div>
+		  </div>
+		  <div class="control-group">
+		      <div class="controls">
+		        <button type="submit" class="btn btn-info">注册供应商</button>
+		      </div>
+		    </div>
+		</form>
+		</div>
+		<div class="span2">
+		<dl>
+		  <dt>请准确填写贵公司的信息</dt>
+		  <dd>用户会通过您填写的信息联系贵公司</dd>
+		</dl>
+		</div>
+	</div>
+</div>
+{% endblock %}

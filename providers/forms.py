@@ -29,9 +29,9 @@ class ProviderInfoForm(forms.Form):
         required=True)
     address = forms.CharField(widget=forms.Textarea({'class': 'text'}))
     contact = forms.CharField(widget=forms.Textarea({'class': 'text'}))
-    site_url = forms.CharField(
-        widget=forms.URLField(
-            initial='http://'))
+    #site_url = forms.CharField(
+     #   widget=forms.URLField(
+      #      initial='http://'))
     email = forms.CharField(widget=forms.EmailField())
 
 
@@ -43,12 +43,47 @@ class ProviderRegisterForm(forms.Form):
     '''
 
     username = forms.CharField(
-        widget=forms.Textarea({'class': 'text'}),
+        widget=forms.TextInput(attrs={'placeholder':'用户名'}),
         required=True)
     password = forms.CharField(
-        widget=forms.PasswordInput({'class': 'text'}),
+        widget=forms.PasswordInput(attrs={'placeholder':'密码'}),
+        required=True)
+    repeat_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder':'重复密码'}),
         required=True)
     provider_name = forms.CharField(
-        maxlength=200,
-        widget=forms.TextInput({'class': 'text'}),
+        max_length=200,
+        widget=forms.TextInput(attrs={'placeholder':'公司名称'}),
         required=True)
+    email=forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'邮箱','type':'text'}))
+    phonenumber=forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'电话号码','type':'text'}))
+    qqnumber=forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'QQ号','type':'text'}))
+    def clean_repeatpassword(self):
+		if self.cleaned_data['password']==self.cleaned_data['repeat_password']:
+			return self.cleaned_data['repeat_password']
+		else:
+			raise  forms.ValidationError(u"密码输入不一样,请重新输入")
+class ProviderInfoForm(forms.Form):
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder':'密码'}),
+        required=True)
+    repeat_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder':'重复密码'}),
+        required=True)
+    provider_name = forms.CharField(
+        max_length=200,
+        widget=forms.TextInput(attrs={'placeholder':'公司名称'}),
+        required=True)
+    email=forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'邮箱','type':'text'}))
+    phonenumber=forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'电话号码','type':'text'}))
+    qqnumber=forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'QQ号','type':'text'}))
+    def clean_repeatpassword(self):
+		if self.cleaned_data['password']==self.cleaned_data['repeat_password']:
+			return self.cleaned_data['repeat_password']
+		else:
+			raise  forms.ValidationError(u"密码输入不一样,请重新输入")
+
+class ProviderLoginForm(forms.Form):
+	username=forms.CharField(max_length=200,widget=forms.TextInput(attrs={'placeholder':'用户名'}))
+	password=forms.CharField(max_length=200,widget=forms.PasswordInput(attrs={'placeholder':'密码'}))
+

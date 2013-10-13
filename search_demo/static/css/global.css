@@ -1,0 +1,72 @@
+/* phdgogo样式,基于bootstrap,2013.10.10 */
+/* 首页 */
+#searchinput {
+	width: 350px;
+}
+#logo{
+	width: 300px;
+	height: 120px;
+	bottom: 120px;
+	padding-left: 50px;
+}
+/* 搜索结果页 */
+#navlogo{
+	width: 72px;
+	height: 18px;
+	margin-left: 120px;
+}
+#indexbody{
+	margin-top: 190px;
+}
+.searchitem{
+	padding-top: 12px;
+	padding-bottom: 12px;
+	border: 1px solid #ffffff !important;
+}
+.searchitem:hover{
+background: url("/img/results_highlight_bg.v101.png") repeat-x scroll 0 0 #EAEAEA;
+border: 1px solid #BFBFBF !important;
+border-radius: 6px 6px 6px 6px;
+cursor: pointer;
+padding-top: 12px;
+padding-bottom: 12px;
+}
+.companylogoimg{
+	height: 20px;
+	width: 20px;
+}
+.searchitem > p{
+margin: 0 0 0px;
+}
+.searchitem > p > a{
+color: #000000;
+}
+.searchitem > p > a:hover{
+color: #000000;
+}
+#muteurl{
+	color: #781900;
+	font-size: 90%;
+	margin-bottom: 0px;
+}
+#productinfo{
+	margin-bottom: 0px;
+}
+.lead {
+margin-bottom: 0px;
+}
+.productpic{
+	width: 80px;
+	height: 80px;
+}
+.sidebarico{
+	width: 22px;
+	height: 22px;
+}
+red{
+	color:red;
+}    
+/* 全局 */
+body{
+	padding:60px;
+}

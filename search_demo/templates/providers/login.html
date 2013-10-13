@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block custom_css%}
+{% endblock %}
+{% block custom_js %}
+<script src="/static/js/global.js"></script>
+{% endblock %}
+{% block title%}
+phdgogo-试剂采购搜索-供应商登陆
+{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="span6 offset3">
+		<p class="text-center"><red>phdgogo.com供应商登陆页</red></p>
+		<form class="form-horizontal" method="POST">
+			 {% csrf_token %}
+		  <div class="control-group">
+		    <label class="control-label" for="inputEmail">用户名</label>
+		    <div class="controls">
+		      <p>{{form.username}}</p>
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword">密码</label>
+		    <div class="controls">
+		      <p>{{form.password}}</p>
+		    </div>
+		  {% if message %}
+		  <div class="alert alert-success">
+		  <P class="text-center">{{message}}</p>
+		  </div>
+		  {% endif %}
+		  </div>
+		  <div class="control-group">
+		      <div class="controls">
+		        <button type="submit" class="btn btn-info">供应商登陆</button>
+		        <a  class="btn" href="{% url "providers.views.register" %}">前去注册</a>
+		      </div>
+		    </div>
+		</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
