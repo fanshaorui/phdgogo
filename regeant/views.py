@@ -18,6 +18,7 @@ def index(request):
 
 def search(request):
     keyword = request.GET.get('keyword')
+    form = SearchForm(keyword=keyword)
     results = Regeant.search.query(keyword)
     return render_to_response("results.html", RequestContext(
         request, {
