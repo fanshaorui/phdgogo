@@ -14,12 +14,12 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'search/', 'regeant.views.search'),
-    url(r'product/(\w+)/', 'regeant.views.detail'),
+    url(r'^search/', 'regeant.views.search'),
+    url(r'^product/(\w+)/', 'regeant.views.detail'),
     url(r'^provider/$', 'providers.views.index'),
     url(r'^provider/info/$','providers.views.providerinfo'),
     url(r'^accounts/logout/$','providers.views.logout_view'),
     url(r'^accounts/login_page/$','providers.views.login_page'),
     url(r'^providers/register/$','providers.views.register'),
-    url(r'', 'regeant.views.index'),
+    url(r'^$', 'regeant.views.index'),
 )
