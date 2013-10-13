@@ -16,6 +16,10 @@ class Producer(models.Model):
     country = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
 
+    def __eq__(self, other):
+        '''' override "=="" operator '''
+        return self.id == other.id
+
     def __unicode__(self):
         return self.name
 

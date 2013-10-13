@@ -7,9 +7,10 @@
  <div class="navbar-inner">
  <div class="container">
  <a class="brand" href="#"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
- <form class="navbar-form pull-left">
+ <form class="navbar-form pull-left" method="get" action="/search">
      <div class="input-append">
-         <input type="text" class="span4" placeholder="氨基苯并咪唑">
+     	 {% csrf_token %}
+         {{form.keyword}}
          <button type="submit" class="btn"><i class="icon-search"></i></button>
        </div>
  </form>
@@ -22,7 +23,7 @@
 <div class="container">
 <div class="row">
 <div class="span8 offset1">
-<p class="text-center">一共有9个搜索结果,共8家公司的产品,您可以联系12家供应商购买</p>
+<p class="text-center">一共有{{ res_num }}个搜索结果,共{{producer_quant}}家公司的产品,您可以联系12家供应商购买</p>
 <hr>
 </div>
 </div>

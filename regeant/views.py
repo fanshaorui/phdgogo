@@ -20,11 +20,17 @@ def search(request):
     keyword = request.GET.get('keyword')
     form = SearchForm({'keyword': keyword})
     results = Regeant.search.query(keyword)
+    producers = set()
+    for res in results:
+        producers.add(res.producer)
+
     return render_to_response("results.html", RequestContext(
         request, {
             'form': form,
+            'keyword': keyword,
             'results': results,
-            'res': len(results)}))
+            'producer_quant': len(producers),
+            'res_num': len(results)}))
 
 
 def detail(request, product_pk):
