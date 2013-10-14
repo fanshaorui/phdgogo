@@ -24,7 +24,7 @@
 <div class="container">
 <div class="row">
 <div class="span8 offset1">
-<p class="text-center">一共有{{ res_num }}个搜索结果,共{{producer_quant}}家公司的产品,您可以联系12家供应商购买</p>
+<p class="text-center">一共有{{ res_num }}个搜索结果,共{{producer_quant}}家公司的产品,您可以联系{{provider_quant}}家供应商购买</p>
 <hr>
 </div>
 </div>
@@ -43,7 +43,7 @@
 	<div>
 	<p id="muteurl">{{result.url_path}}</p>
 	<p id="productinfo">{{result.product_name}} | CAS:{{result.cas_no}} | {{result.brand.name}}<img src="{{result.producer.logo_path}}" class="companylogoimg">货号:{{result.product_no}}</p>
-	<p>共有<span class="badge badge-important">12</span>家供应商提供本产品,<a href="#"  target="_blank">查看联系方式</a></p>
+	<p>共有<span class="badge badge-important">{{result.producer.providers.all|length}}</span>家供应商提供本产品,<a href="{% url "regeant.views.detail" {{result.pk}}%}"  target="_blank">查看联系方式</a></p>
 	</div>
 	</div>
 	<div class="span1">
@@ -56,9 +56,9 @@
 	<div class="span2">
 	<ul class="nav nav-list">
 	<li>点击去以下网站搜索</li>
-	<li><strong>氨基苯并咪唑</strong></li>
-	  <li><a href="http://en.wikipedia.org/wiki/氨基苯并咪唑" target="_blank"><img src="http://en.wikipedia.org/favicon.ico"/ class="sidebarico">维基百科</a></li>
-	  <li><a href="http://scholar.google.com/scholar?&q=氨基苯并咪唑" target="_blank"><img src="http://scholar.google.com/favicon-png.ico"/ class="sidebarico">谷歌学术搜索</a></li>
+	<li><strong>{{keyword}}</strong></li>
+	  <li><a href="http://en.wikipedia.org/wiki/{{keyword}}" target="_blank"><img src="http://en.wikipedia.org/favicon.ico"/ class="sidebarico">维基百科</a></li>
+	  <li><a href="http://scholar.google.com/scholar?&q={{keyword}}" target="_blank"><img src="http://scholar.google.com/favicon-png.ico"/ class="sidebarico">谷歌学术搜索</a></li>
 	</ul>
 	</div>
 	</div>
