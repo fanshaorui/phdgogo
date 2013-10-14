@@ -6,7 +6,7 @@
 <div class="navbar navbar-fixed-top">
  <div class="navbar-inner">
  <div class="container">
- <a class="brand" href="#"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
+ <a class="brand" href="{% url "regeant.views.index"%}"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
  <form class="navbar-form pull-left" method="get" action="/search">
      <div class="input-append">
      	 {% csrf_token %}
@@ -15,7 +15,7 @@
        </div>
  </form>
    <ul class="nav pull-right">
-   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.totalitem}}</span></a></li>
+   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
    <li><a href="#">帮忙分享phdgogo</a></li>
    </ul>
    </div>
@@ -43,7 +43,7 @@
 	<div>
 	<p id="muteurl">{{result.url_path}}</p>
 	<p id="productinfo">{{result.product_name}} | CAS:{{result.cas_no}} | {{result.brand.name}}<img src="{{result.producer.logo_path}}" class="companylogoimg">货号:{{result.product_no}}</p>
-	<p>共有<span class="badge badge-important">{{result.producer.providers.all|length}}</span>家供应商提供本产品,<a href="{% url "regeant.views.detail" {{result.pk}}%}"  target="_blank">查看联系方式</a></p>
+	<p>共有<span class="badge badge-important">{{result.producer.providers.all|length}}</span>家供应商提供本产品,<a href="{% url "regeant.views.detail" {{result.id}} %}"  target="_blank">查看联系方式</a></p>
 	</div>
 	</div>
 	<div class="span1">
