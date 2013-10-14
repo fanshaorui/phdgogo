@@ -19,7 +19,7 @@ phdgogo-试剂采购搜索-供应商联系方式
        </div>
  </form>
    <ul class="nav pull-right">
-   	<li><a href="{% url "customer.views.cart_view" %}">采购清单</a></li>
+   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.totalitem}}</span></a></li>
    <li><a href="#">帮忙分享phdgogo</a></li>
    </ul>
    </div>

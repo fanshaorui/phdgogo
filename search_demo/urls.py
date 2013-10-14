@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^providers/register/$','providers.views.register'),
     url(r'customer/cart/view/','customer.views.cart_view'),
     url(r'^customer/cart/add/(\d+)/$','customer.views.add_cart'),
-    url(r'customrt/cart/clean/','customer.views.clean_cart'),
+    url(r'customer/cart/clean/','customer.views.clean_cart'),
+    url(r'customer/cart/excel/','customer.views.excelview'),
     url(r'', 'regeant.views.index'),
 )
