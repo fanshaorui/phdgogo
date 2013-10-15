@@ -36,7 +36,7 @@
 	<div class="span2">
 	<a href="{{result.moleclar_structure_formation_path}}" target="_blank"><img class="productpic" src="{{result.moleclar_structure_formation_path}}"></a>
 	</div>
-	<div class="span6">
+	<div class="span5">
 	<div class="lead">
 	<a href="{{result.url_path}}" target="_blank">{{result.product_english_name}}</a>
 	</div>
@@ -47,6 +47,11 @@
 	</div>
 	</div>
 	<div class="span1">
+	{% if result.id|slugify in request.session.cart %}
+		<a class="btn btn-small disabled">已加清单</a>
+	{% else %}
+		<p><a href="{% url "customer.views.add_cart" result.id %}"class="btn btn-small" >加入清单</a></p>
+	{% endif %}
 	</div>
 	</div>
 	</div>
