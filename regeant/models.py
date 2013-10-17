@@ -81,7 +81,8 @@ class Regeant(models.Model):
     search = SphinxSearch(
         index='regeant_regeant',
         mode='SPH_MATCH_EXTENDED2',
-        rankmode='SPH_RANK_SPH04'
+        rankmode='SPH_RANK_SPH04',
+        sortmode='SPH_SORT_EXTENDED'
     )
 
     @property
