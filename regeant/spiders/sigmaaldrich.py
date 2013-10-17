@@ -12,13 +12,18 @@ class SigmaaldrichSpider(CrawlSpider):
     name = 'sigmaaldrich'
     allowed_domains = ['www.sigmaaldrich.com']
     start_urls = [
-        'http://www.sigmaaldrich.com/china-mainland/zh/site-level/site-map.html'
+        'http://www.sigmaaldrich.com/china-mainland/zh/life-science.html',
+        'http://www.sigmaaldrich.com/china-mainland/zh/analytical-chromatography.html',
+        'http://www.sigmaaldrich.com/china-mainland/zh/chemistry.html',
+        'http://www.sigmaaldrich.com/china-mainland/zh/materials-science.html',
+        'http://www.sigmaaldrich.com/china-mainland/zh/labware.html',
+        'http://www.sigmaaldrich.com/content/safc-global.html',
         ]
 
     rules =(
         Rule(SgmlLinkExtractor(
-            allow=('/catalog/product/', )), callback='parse_item'),
-        Rule(SgmlLinkExtractor(allow=()), follow=True)
+            allow=(r'/catalog/product/', ), deny=(r'search')), callback='parse_item'),
+        Rule(SgmlLinkExtractor(allow=(), deny=(r'search')), follow=True)
     )
 
     def __init__(self):
