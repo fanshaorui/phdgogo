@@ -80,9 +80,18 @@ class Regeant(models.Model):
     wiki = models.TextField(blank=True)
     search = SphinxSearch(
         index='regeant_regeant',
+        weights={
+            'product_name': 100,
+            'product_english_name': 100,
+            'producer_name': 70,
+            'product_no': 100,
+            'cas_no': 100,
+            'product_abbr_name': 100,
+            'product_abbr_eng_name': 100,
+            'description': 10
+        },
         mode='SPH_MATCH_EXTENDED2',
-        rankmode='SPH_RANK_SPH04',
-        sortmode='SPH_SORT_EXTENDED'
+        rankmode='SPH_RANK_SPH04'
     )
 
     @property

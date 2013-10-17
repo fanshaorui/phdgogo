@@ -6,6 +6,7 @@
 from django.core.context_processors import csrf
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
+from djangosphinx.apis import current as sphapi
 from .models import Regeant
 from .forms import SearchForm
 
@@ -20,7 +21,7 @@ def search(request):
     keyword = request.GET.get('keyword')
     form = SearchForm({'keyword': keyword})
     query = Regeant.search.query(keyword)
-    results = query.order_by('-@rank')
+    results = query.order_by('-@rank', mode=sphapi.SPH_SORT_EXTENDED)
     producers = set()
     providers = set()
     for res in results:
