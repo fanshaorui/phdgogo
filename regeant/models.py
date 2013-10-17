@@ -4,7 +4,7 @@
 from django.db import models
 from scrapy.contrib.djangoitem import DjangoItem
 from djangosphinx.models import SphinxSearch
-from djangosphinx.apis import sphapi
+from djangosphinx.apis import current as sphapi
 from providers.models import Provider
 from .utils import Pagination
 
