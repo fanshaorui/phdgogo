@@ -30,7 +30,7 @@ class Pagination(object):
 
         """The total number of pages of the results."""
 
-        return int(ceil(self.total/float(self.pagenum)))
+        return int(ceil(self.total/float(self.per_page)))
 
     def prev(self):
 
@@ -105,7 +105,6 @@ class Pagination(object):
             {% endmacro %}
         """
 
-        print("total page num: %s" % self.total)
         last = 0
         for num in range(1, self.pages + 1):
             if num <= left_edge or \
