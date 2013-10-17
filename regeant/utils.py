@@ -105,6 +105,7 @@ class Pagination(object):
             {% endmacro %}
         """
 
+        print("total page num: %s" % self.total)
         last = 0
         for num in range(1, self.pages + 1):
             if num <= left_edge or \
