@@ -19,7 +19,7 @@ def index(request):
 def search(request):
     keyword = request.GET.get('keyword')
     form = SearchForm({'keyword': keyword})
-    page_num = request.GET.get('page_num', 1)
+    page_num = int(request.GET.get('page_num', 1))
     pagination = Regeant.page(keyword, page_num=page_num)
     producers = set()
     providers = set()
