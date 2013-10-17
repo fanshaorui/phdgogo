@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 
+from math import ceil
+
+
 class Pagination(object):
 
     """ Pagination object for search result pagination.
