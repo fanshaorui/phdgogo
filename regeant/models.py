@@ -101,9 +101,10 @@ class Regeant(models.Model):
         ''' property method for results page href attributes'''
         return "/product/%s.html" % self.id
 
-    def page(self, query_str, page_num=1, per_page=20):
+    @classmethod
+    def page(cls, query_str, page_num=1, per_page=20):
         """return Pagination object"""
-        query = self.search.query(query_str)
+        query = cls.search.query(query_str)
         query = query.order_by('-@rank', sphapi.SPH_SORT_EXTENDED)
         return Pagination(query, page_num)
 
