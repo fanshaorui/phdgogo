@@ -11,7 +11,7 @@ class Pagination(object):
         @since: 1.0
     """
 
-    def __init__(self, search_query, pagenum, per_page=20, total):
+    def __init__(self, search_query, pagenum, per_page=20):
         # The sphinx search query object contains result set,
         # so we don't need items object or list
         self._query = search_query
@@ -20,7 +20,7 @@ class Pagination(object):
         # number of results displayed in one page
         self.per_page = per_page
         # total number of results
-        self.total = total
+        self.total = search_query.count()
 
     @property
     def pages(self):
@@ -31,10 +31,13 @@ class Pagination(object):
 
     def prev(self):
 
-        """Returns a :class: `Pagination` object representing the previous page."""
+        """Returns a :class: `Pagination` object representing the
+           previous page.
+        """
 
         assert self._query is not None, 'query needed.'
-        return self.__class__(self._query, self.prev_num, self.per_page, self.total)
+        return self.__class__(
+            self._query, self.prev_num, self.per_page, self.total)
 
     @property
     def prev_num(self):
@@ -56,7 +59,8 @@ class Pagination(object):
         """Returns a :class: `Pagenation` object for the next page."""
 
         assert self._query is not None, 'query needed.'
-        return self.__class__(self._query, self.next_num, self.per_page, self.total)
+        return self.__class__(
+            self._query, self.next_num, self.per_page, self.total)
 
     @property
     def has_next(self):
@@ -76,7 +80,6 @@ class Pagination(object):
     def iter_pages(
         self, left_edge=2, left_current=2,
         right_current=5, right_edge=2):
-        
         """Iterates over the page numbers in the pagination.  The four
         parameters control the thresholds how many numbers should be produced
         from the sides.  Skipped page numbers are represented as `None`.
@@ -104,7 +107,7 @@ class Pagination(object):
             if num <= left_edge or \
                 (num > self.pagenum - left_current -1 and \
                     num < self.pagenum + right_current) or \
-                num > self.pages -right_edge:
+                num > self.pages - right_edge:
                     if last + 1 != num:
                         yield None
                     yield num
@@ -116,6 +119,5 @@ class Pagination(object):
         """Returns search results of current page."""
 
         page_end = self.pagenum * self.per_page - 1
-        page_start = page_end - per_page + 1
+        page_start = page_end - self.per_page + 1
         return self._query[page_start:page_end]
-        

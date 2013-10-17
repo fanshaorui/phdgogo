@@ -105,7 +105,7 @@ class Regeant(models.Model):
         """return Pagination object"""
         query = self.search.query(query_str)
         query = query.order_by('-@rank', sphapi.SPH_SORT_EXTENDED)
-        return Pagination(query, page_num, query.count())
+        return Pagination(query, page_num)
 
     def __unicode__(self):
         return self.product_name if self.product_name \
