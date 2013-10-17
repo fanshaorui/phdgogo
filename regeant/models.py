@@ -105,7 +105,7 @@ class Regeant(models.Model):
     def page(cls, query_str, page_num=1, per_page=20):
         """return Pagination object"""
         query = cls.search.query(query_str)
-        query = query.order_by('-@rank', sphapi.SPH_SORT_EXTENDED)
+        query = query.order_by('-@rank', mode=sphapi.SPH_SORT_EXTENDED)
         return Pagination(query, page_num)
 
     def __unicode__(self):
