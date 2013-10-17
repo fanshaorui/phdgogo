@@ -6,7 +6,6 @@
 from django.core.context_processors import csrf
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
-from djangosphinx.apis import current as sphapi
 from .models import Regeant
 from .forms import SearchForm
 
@@ -20,11 +19,11 @@ def index(request):
 def search(request):
     keyword = request.GET.get('keyword')
     form = SearchForm({'keyword': keyword})
-    query = Regeant.search.query(keyword)
-    results = query.order_by('-@rank', mode=sphapi.SPH_SORT_EXTENDED)
+    page_num = request.GET.get('page_num', 1)
+    pagination = Regeant.page(keyword, page_num=page_num)
     producers = set()
     providers = set()
-    for res in results:
+    for res in pagination.cur_page:
         producers.add(res.producer)
         providers.update(res.producer.providers.all())
 
@@ -32,10 +31,10 @@ def search(request):
         request, {
             'form': form,
             'keyword': keyword,
-            'results': results,
+            'results': pagination,
             'producer_quant': len(producers),
             'provider_quant': len(providers),
-            'res_num': query.count()}))
+            'res_num': pagination.total}))
 
 
 def detail(request, product_pk):

@@ -9,13 +9,13 @@
  <a class="brand" href="{% url "regeant.views.index"%}"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
  <form class="navbar-form pull-left" method="get" action="/search">
      <div class="input-append">
-     	 {% csrf_token %}
+         {% csrf_token %}
          {{form.keyword}}
          <button type="submit" class="btn"><i class="icon-search"></i></button>
        </div>
  </form>
    <ul class="nav pull-right">
-   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
+    <li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
    <li><a href="#">帮忙分享phdgogo</a></li>
    </ul>
    </div>
@@ -28,44 +28,69 @@
 <hr>
 </div>
 </div>
-	<div class="row">
-	<div class="span9 offset1">
-		{% for result in results %}
-	<div class="searchitem">
-	<div class="row">
-	<div class="span2">
-	<a href="{{result.moleclar_structure_formation_path}}" target="_blank"><img class="productpic" src="{{result.moleclar_structure_formation_path}}"></a>
-	</div>
-	<div class="span5">
-	<div class="lead">
-	<a href="{{result.url_path}}" target="_blank">{{result.product_english_name}}</a>
-	</div>
-	<div>
-	<p id="muteurl">{{result.url_path}}</p>
-	<p id="productinfo">{{result.product_name}} | CAS:{{result.cas_no}} | {{result.brand.name}}<img src="{{result.producer.logo_path}}" class="companylogoimg">货号:{{result.product_no}}</p>
-	<p>共有<span class="badge badge-important">{{result.producer.providers.all|length}}</span>家供应商提供本产品,<a href="{% url "regeant.views.detail" result.id%}"  target="_blank">查看联系方式</a></p>
-	</div>
-	</div>
-	<div class="span1">
-	{% if result.id|slugify in request.session.cart %}
-		<a class="btn btn-small disabled">已加清单</a>
-	{% else %}
-		<p><a href="{% url "customer.views.add_cart" result.id %}"class="btn btn-small" >加入清单</a></p>
-	{% endif %}
-	</div>
-	</div>
-	</div>
-		{% endfor %}
-	</div>
+    <div class="row">
+        <div class="span9 offset1">
+        {% for result in results.cur_page %}
+            <div class="searchitem">
+                <div class="row">
+                    <div class="span2">
+                        <a href="{{result.moleclar_structure_formation_path}}" target="_blank"><img class="productpic" src="{{result.moleclar_structure_formation_path}}"></a>
+                    </div>
+                    <div class="span5">
+                        <div class="lead">
+                            <a href="{{result.url_path}}" target="_blank">{{result.product_english_name}}</a>
+                        </div>
+                        <div>
+                            <p id="muteurl">{{result.url_path}}</p>
+                            <p id="productinfo">{{result.product_name}} | CAS:{{result.cas_no}} | {{result.brand.name}}<img src="{{result.producer.logo_path}}" class="companylogoimg">货号:{{result.product_no}}</p>
+                            <p>共有<span class="badge badge-important">{{result.producer.providers.all|length}}</span>家供应商提供本产品,<a href="{% url "regeant.views.detail" result.id%}"  target="_blank">查看联系方式</a></p>
+                        </div>
+                    </div>
+                    <div class="span1">
+                    {% if result.id|slugify in request.session.cart %}
+                        <a class="btn btn-small disabled">已加清单</a>
+                    {% else %}
+                        <p><a href="{% url "customer.views.add_cart" result.id %}"class="btn btn-small" >加入清单</a></p>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="pagination">
+            <ul>
+                {%if results.has_prev %}
+                    <li><a href="/search/?keyword={{keyword}}&page_num={{results.prev_num}}">Prev</a></li>
+                {% else %}
+                    <li class="disabled"><a href="javascript:void(0);">Prev</a></li>
+                {% endif%}
+                {% for page in results.iter_pages %}
+                    {% if page %}
+                        {% if page != results.pagenum %}
+                        <li><a href="/search/?keyword={{keyword}}&page_num={{page}}">{{page}}</a></li>
+                        {% else %}
+                        <li class="active"><a href="javascript:void(0);">{{page}}</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li class="disabled">...</li>
+                    {% endif %}
+                {% endfor %}
+                {%if results.has_next %}
+                    <li><a href="/search/?keyword={{keyword}}&page_num={{results.next_num}}">Next</a></li>
+                {% else %}
+                    <li class="disabled"><a href="javascript:void(0);">Next</a></li>
+                {% endif%}
+            </ul>
+        </div>
+    </div>
 
-	<div class="span2">
-	<ul class="nav nav-list">
-	<li>点击去以下网站搜索</li>
-	<li><strong>{{keyword}}</strong></li>
-	  <li><a href="http://en.wikipedia.org/wiki/{{keyword}}" target="_blank"><img src="http://en.wikipedia.org/favicon.ico"/ class="sidebarico">维基百科</a></li>
-	  <li><a href="http://scholar.google.com/scholar?&q={{keyword}}" target="_blank"><img src="http://scholar.google.com/favicon-png.ico"/ class="sidebarico">谷歌学术搜索</a></li>
-	</ul>
-	</div>
-	</div>
-	</div>
+    <div class="span2">
+    <ul class="nav nav-list">
+    <li>点击去以下网站搜索</li>
+    <li><strong>{{keyword}}</strong></li>
+      <li><a href="http://en.wikipedia.org/wiki/{{keyword}}" target="_blank"><img src="http://en.wikipedia.org/favicon.ico"/ class="sidebarico">维基百科</a></li>
+      <li><a href="http://scholar.google.com/scholar?&q={{keyword}}" target="_blank"><img src="http://scholar.google.com/favicon-png.ico"/ class="sidebarico">谷歌学术搜索</a></li>
+    </ul>
+    </div>
+    </div>
+    </div>
 {% endblock %}

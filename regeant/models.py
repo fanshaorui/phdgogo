@@ -4,7 +4,9 @@
 from django.db import models
 from scrapy.contrib.djangoitem import DjangoItem
 from djangosphinx.models import SphinxSearch
+from djangosphinx.apis import sphapi
 from providers.models import Provider
+from .utils import Pagination
 
 # Create your models here.
 
@@ -98,6 +100,12 @@ class Regeant(models.Model):
     def product_url(self):
         ''' property method for results page href attributes'''
         return "/product/%s.html" % self.id
+
+    def page(self, query_str, page_num=1, per_page=20):
+        """return Pagination object"""
+        query = self.search.query(query_str)
+        query = query.order_by('-@rank', sphapi.SPH_SORT_EXTENDED)
+        return Pagination(query, page_num, query.count())
 
     def __unicode__(self):
         return self.product_name if self.product_name \
