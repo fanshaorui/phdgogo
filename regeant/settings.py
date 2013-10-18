@@ -27,7 +27,7 @@ COOKIES_ENABLED = True
 
 # Pipeline
 ITEM_PIPELINES = [
-    'regeant.pipelines.SigmaPipeline',
+    'regeant.pipelines.ItemPipeline',
 ]
 
 DNSCACHE_ENABLED = True
