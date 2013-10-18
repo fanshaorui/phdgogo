@@ -18,13 +18,12 @@ class SigmaaldrichSpider(CrawlSpider, HelperMixin):
         'http://www.sigmaaldrich.com/china-mainland/zh/chemistry.html',
         'http://www.sigmaaldrich.com/china-mainland/zh/materials-science.html',
         'http://www.sigmaaldrich.com/china-mainland/zh/labware.html',
-        'http://www.sigmaaldrich.com/content/safc-global.html',
         ]
 
     rules = (
         Rule(SgmlLinkExtractor(
-            allow=(r'/catalog/product/', ), deny=(r'search')), callback='parse_item'),
-        Rule(SgmlLinkExtractor(allow=(), deny=(r'search')), follow=True)
+            allow=(r'/catalog/product/', )), callback='parse_item'),
+        Rule(SgmlLinkExtractor(allow=()), follow=True)
     )
 
     def __init__(self):
