@@ -22,10 +22,6 @@ class Producer(models.Model):
     providers = models.ManyToManyField(
         Provider, related_name='provider_relation_1')
 
-    def __eq__(self, other):
-        '''' override "=="" operator '''
-        return self.id == other.id
-
     def __unicode__(self):
         return self.name
 
