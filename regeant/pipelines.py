@@ -31,8 +31,8 @@ class ItemPipeline(object):
             from django.db import connection
             cursor = connection.cursor()
             cursor.execute(
-                r"SELECT `product_no`,`producer_id` FROM `regeant_regeant` \
-                    WHERE `producer_id`=%s", (spider.producer.id,))
+                r"""SELECT `product_no`,`producer_id` FROM `regeant_regeant` 
+                WHERE `producer_id`='%s'""", (spider.producer.id,))
 
             for item in cursor.fetchall():
                 self.crawled.add((item[0], item[1]))

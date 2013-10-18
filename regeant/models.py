@@ -20,7 +20,8 @@ class Producer(models.Model):
     description = models.TextField(blank=True)
 
     providers = models.ManyToManyField(
-        Provider, related_name='provider_relation_1')
+        Provider, related_name='provider_relation_1',
+        blank=True, null=True, default=None)
 
     def __unicode__(self):
         return self.name
