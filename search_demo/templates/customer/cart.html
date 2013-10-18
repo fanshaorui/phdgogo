@@ -28,10 +28,15 @@ phdgogo-试剂采购搜索-采购清单
 <div class="container">
 <div class="row">
 <div class="span6 offset3">
+ <ul class="breadcrumb">
+  <li><a href="{{request.META.HTTP_REFERER}}">返回上一页</a> <span class="divider">/</span></li>
+  <li class="active">采购清单</li>
+</ul>
 <h3>您的采购清单</h3>
+
 <table class="table table-hover">
-<thead>
-<tr>
+  <thead>
+   <tr>
 <td>生产公司</td>
 <td>产品名称</td>
 <td>货号</td>
@@ -55,7 +60,7 @@ phdgogo-试剂采购搜索-采购清单
 <a href="{% url "customer.views.clean_cart" %}" class="btn btn-warning">清空采购清单</a>
 </div>
 <div class="span3">
-<a href="{% url "customer.views.excelview" %}" class="btn btn-success">生成Excel文件</a>
+<a href="{% url "customer.views.excelview" %}" class="btn btn-success">生成采购清单Excel</a>
 </div>
 </div>
 </div>
