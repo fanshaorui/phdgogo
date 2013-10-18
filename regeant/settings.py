@@ -32,7 +32,7 @@ ITEM_PIPELINES = [
 
 DNSCACHE_ENABLED = True
 
-DEPTH_PRIORITY = 10
+DEPTH_PRIORITY = 1
 DEPTH_LIMIT = 10
 SCHEDULER_DISK_QUEUE = 'scrapy.squeue.PickleFifoDiskQueue'
 SCHEDULER_MEMORY_QUEUE = 'scrapy.squeue.FifoMemoryQueue'
