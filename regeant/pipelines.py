@@ -36,3 +36,5 @@ class ItemPipeline(object):
 
             for item in cursor.fetchall():
                 self.crawled.add((item[0], item[1]))
+
+            self.crawled_init = True

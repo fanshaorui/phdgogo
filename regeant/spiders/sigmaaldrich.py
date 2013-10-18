@@ -30,6 +30,15 @@ class SigmaaldrichSpider(CrawlSpider, HelperMixin):
     def __init__(self):
         self.producer = Producer.objects.get(pk=1)
         self.brand = Brand.objects.get(pk=1)
+        self.forged_cookie = dict(country="CHIM",
+            SialLocaleDef="CountryCode~CN|WebLang~-7|",
+            SessionPersistence="""CLICKSTREAMCLOUD%3A%3DvisitorId%3Danonymous%7CPROFILEDATA%3A%3D
+            avatar%3D%2Fetc%2Fdesigns%2Fdefault%2Fimages%2Fcollab%2Favatar.png%2CauthorizableId%3D
+            anonymous%2CauthorizableId_xss%3Danonymous%2CformattedName%3D%2CformattedName_xss%3D%7C
+            SURFERINFO%3A%3DIP%3D141.247.239.190%2Ckeywords%3D%2Cbrowser%3DUnresolved%2COS%3DMac%20OS
+            %20X%2Cresolution%3D1440x900%7C""", 
+            GUID="415dfb24-e4f2-4218-a5d7-b2943d012103|NULL|1380870456876", 
+            cmTPSet="Y")
         CrawlSpider.__init__(self)
 
     def parse_item(self, response):
@@ -79,26 +88,10 @@ class SigmaaldrichSpider(CrawlSpider, HelperMixin):
             allow='/catalog/product/')
         links = target_le.extract_links(response)
         if links:
-            return [Request(url=link.url, cookies = dict(country="CHIM",
-            SialLocaleDef="CountryCode~CN|WebLang~-7|",
-            SessionPersistence="""CLICKSTREAMCLOUD%3A%3DvisitorId%3Danonymous%7CPROFILEDATA%3A%3D
-            avatar%3D%2Fetc%2Fdesigns%2Fdefault%2Fimages%2Fcollab%2Favatar.png%2CauthorizableId%3D
-            anonymous%2CauthorizableId_xss%3Danonymous%2CformattedName%3D%2CformattedName_xss%3D%7C
-            SURFERINFO%3A%3DIP%3D141.247.239.190%2Ckeywords%3D%2Cbrowser%3DUnresolved%2COS%3DMac%20OS
-            %20X%2Cresolution%3D1440x900%7C""", 
-            GUID="415dfb24-e4f2-4218-a5d7-b2943d012103|NULL|1380870456876", 
-            cmTPSet="Y"), callback=self.parse_item) 
+            return [Request(url=link.url, cookies=self.forged_cookie, callback=self.parse_item) 
                 for link in links]
         else:
             general_le = SgmlLinkExtractor(
                         allow=())
-            return [Request(url=link.url, cookies = dict(country="CHIM", 
-                SialLocaleDef="CountryCode~CN|WebLang~-7|", 
-                SessionPersistence="""CLICKSTREAMCLOUD%3A%3DvisitorId%3Danonymous%7CPROFILEDATA%3A%3D
-                avatar%3D%2Fetc%2Fdesigns%2Fdefault%2Fimages%2Fcollab%2Favatar.png%2CauthorizableId%3D
-                anonymous%2CauthorizableId_xss%3Danonymous%2CformattedName%3D%2CformattedName_xss%3D%7C
-                SURFERINFO%3A%3DIP%3D141.247.239.190%2Ckeywords%3D%2Cbrowser%3DUnresolved%2COS%3DMac%20OS
-                %20X%2Cresolution%3D1440x900%7C""", 
-                GUID="415dfb24-e4f2-4218-a5d7-b2943d012103|NULL|1380870456876", 
-                cmTPSet="Y"))
+            return [Request(url=link.url, cookies=self.forged_cookie)
                     for link in general_le.extract_links(response)]
