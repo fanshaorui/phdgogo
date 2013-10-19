@@ -48,7 +48,7 @@ def clean_cart(request):
 def excelview(request):
 	cart=request.session.get("cart",None)
 	cart_list=[]
-	products=[["产品名","生产商名称","产品货号"]]
+	products=[["药品名称","公司","产品货号","个数","规格","价格","订购时间","订购人"]]
 	if not cart:
 		cart=[]
 		request.session["cart"]=cart
@@ -61,4 +61,4 @@ def excelview(request):
 			product_info.append(product.producer.name)
 			product_info.append(product.product_no)
 			products.append(product_info)
-	return ExcelResponse(products)
+	return ExcelResponse(products,"定试剂清单")
