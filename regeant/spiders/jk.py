@@ -10,7 +10,7 @@ from .utils import HelperMixin
 
 class JKCrawlerSpider(CrawlSpider, HelperMixin):
     name = "jk"
-    allowed_domains = ['http://www.jkchemical.com']
+    allowed_domains = ['www.jkchemical.com']
     start_urls = [
         'http://www.jkchemical.com/SiteMap.aspx?language=ch'
         ]
@@ -63,6 +63,4 @@ class JKCrawlerSpider(CrawlSpider, HelperMixin):
             i['brand'] = self.brands[brand]
 
         i['url_path'] = response.url
-        i['original_html'] = response.body.strip()
         return i
-
