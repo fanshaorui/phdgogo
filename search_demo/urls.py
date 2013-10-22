@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^private/$','regeant.views.private'),#隐私权政策
+    url(r'search/(\w+)', 'regeant.views.search'),#搜索结果页
     url(r'search/', 'regeant.views.search'),#搜索结果页
     url(r'providerdetail/(\w+)/', 'regeant.views.provider_detail'),#产品供应商详情页
     url(r'propro/','regeant.views.producers_provider_all'),#

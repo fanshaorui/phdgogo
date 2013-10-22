@@ -16,17 +16,18 @@ def index(request):
         request, {'form': form}))
 
 
-def search(request):
+def search(request,target_producer=None):
     keyword = request.GET.get('keyword')
     form = SearchForm({'keyword': keyword})
     page_num = int(request.GET.get('page_num', 1))
-    pagination = Regeant.page(keyword, page_num=page_num)
     producers = set()
     providers = set()
-    producers_in_session=[]
-    for res in pagination.cur_page:
+    pagination_original = Regeant.page(keyword)
+    for res in pagination_original.cur_page:
         producers.add(res.producer)
         providers.update(res.producer.providers.all())
+    pagination = Regeant.page(keyword, page_num=page_num,producer_id=target_producer)
+    producers_in_session=[]
     for producer in producers:
 	producers_in_session.append(producer.id)
     request.session["producers_in_session"]=producers_in_session

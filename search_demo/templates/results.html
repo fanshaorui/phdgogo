@@ -25,6 +25,12 @@
  <div class="row">
   <div class="span6 offset2">
 <p>一共有<strong>{{ res_num }}</strong>个搜索结果,共<span class="badge badge-important">{{producer_quant}}</span>家公司的产品</p>
+<p>
+ <a href="{% url "regeant.views.search" %}?keyword={{keyword}}">查看全部</a>
+{% for producer in producers %}
+  | <a href="{% url "regeant.views.search" producer.id %}?keyword={{keyword}}">{{ producer.name}}</a>
+ {% endfor %}
+</p>
 <p>您可以联系<span class="badge badge-info">{{provider_quant}}</span>家供应商购买.<a href="{% url "regeant.views.producers_provider_all" %}"  target="_blank">查看联系方式</a></p>
 </div>
 </div>
@@ -66,6 +72,7 @@
                 </div>
             </div>
 		{% endif %}
+		<hr>
         {% endfor %}
         <div class="pagination">
             <ul>
