@@ -23,6 +23,7 @@
 	padding-bottom: 12px;
 	border: 1px solid #ffffff !important;
 }
+/*
 .searchitem:hover{
 background: url("/img/results_highlight_bg.v101.png") repeat-x scroll 0 0 #EAEAEA;
 border: 1px solid #BFBFBF !important;
@@ -31,6 +32,7 @@ cursor: pointer;
 padding-top: 12px;
 padding-bottom: 12px;
 }
+*/
 .companylogoimg{
 	height: 20px;
 	width: 20px;
@@ -51,6 +53,7 @@ color: #000000;
 }
 #productinfo{
 	margin-bottom: 0px;
+	margin-top:8px;
 }
 .lead {
 margin-bottom: 0px;

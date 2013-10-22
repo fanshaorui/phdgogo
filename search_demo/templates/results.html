@@ -7,16 +7,14 @@
  <div class="navbar-inner">
  <div class="container">
  <a class="brand" href="{% url "regeant.views.index"%}"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
- <form class="navbar-form pull-left" method="get" action="/search">
+ <form class="navbar-form pull-left" method="get" action="{% url "regeant.views.search" %}">
      <div class="input-append">
-         {% csrf_token %}
          {{form.keyword}}
          <button type="submit" class="btn"><i class="icon-search"></i></button>
        </div>
  </form>
    <ul class="nav pull-right">
     <li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
-   <li><a href="#">帮忙分享phdgogo</a></li>
    </ul>
    </div>
  </div>
@@ -24,26 +22,44 @@
 <div class="container">
 <div class="row">
 <div class="span8 offset1">
-<p class="text-center">一共有{{ res_num }}个搜索结果,共{{producer_quant}}家公司的产品,您可以联系{{provider_quant}}家供应商购买</p>
+ <div class="row">
+  <div class="span6 offset2">
+<p>一共有<strong>{{ res_num }}</strong>个搜索结果,共<span class="badge badge-important">{{producer_quant}}</span>家公司的产品</p>
+<p>
+ <a href="{% url "regeant.views.search" %}?keyword={{keyword}}">查看全部</a>
+{% for producer in producers %}
+  | <a href="{% url "regeant.views.search" producer.id %}?keyword={{keyword}}">{{ producer.name}}</a>
+ {% endfor %}
+</p>
+<p>您可以联系<span class="badge badge-info">{{provider_quant}}</span>家供应商购买.<a href="{% url "regeant.views.producers_provider_all" %}"  target="_blank">查看联系方式</a></p>
+</div>
+</div>
 <hr>
 </div>
 </div>
     <div class="row">
         <div class="span9 offset1">
         {% for result in results.cur_page %}
+	 {% if result.product_english_name %}
             <div class="searchitem">
                 <div class="row">
                     <div class="span2">
+		      {% if result.moleclar_structure_formation_path %}
                         <a href="{{result.moleclar_structure_formation_path}}" target="_blank"><img class="productpic" src="{{result.moleclar_structure_formation_path}}"></a>
+		       {% else %}
+			<img class="productpic" src="/static/img/nopic.jpg">
+		       {% endif %}
                     </div>
                     <div class="span5">
                         <div class="lead">
                             <a href="{{result.url_path}}" target="_blank">{{result.product_english_name}}</a>
                         </div>
                         <div>
+			 <!--
                             <p id="muteurl">{{result.url_path}}</p>
-                            <p id="productinfo">{{result.product_name}} | CAS:{{result.cas_no}} | {{result.brand.name}}<img src="{{result.producer.logo_path}}" class="companylogoimg">货号:{{result.product_no}}</p>
-                            <p>共有<span class="badge badge-important">{{result.producer.providers.all|length}}</span>家供应商提供本产品,<a href="{% url "regeant.views.detail" result.id%}"  target="_blank">查看联系方式</a></p>
+			!-->
+                            <p id="productinfo">{% if result.product_name %}{{result.product_name}} |{% endif %}  {% if result.cas_no %}CAS:{{result.cas_no}} |{% endif %}  {{result.brand.name}}| 货号:{{result.product_no}}</p>
+			
                         </div>
                     </div>
                     <div class="span1">
@@ -55,6 +71,8 @@
                     </div>
                 </div>
             </div>
+		{% endif %}
+		<hr>
         {% endfor %}
         <div class="pagination">
             <ul>
