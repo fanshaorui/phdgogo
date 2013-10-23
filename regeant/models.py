@@ -17,7 +17,9 @@ class Producer(models.Model):
     logo_path = models.URLField(blank=True)
     country = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
-    providers=models.ManyToManyField(Provider,related_name="provider_relation_1")
+    providers = models.ManyToManyField(
+        Provider, related_name="provider_relation_1")
+
     def __unicode__(self):
         return self.name
 
@@ -92,24 +94,32 @@ class Regeant(models.Model):
     def product_url(self):
         ''' property method for results page href attributes'''
         return "/product/%s.html" % self.id
+
     @classmethod
-    def page(cls, query_str, page_num=1, per_page=20,producer_id=None):
+    def page(cls, query_str, page_num=1, per_page=20, producer_id=None):
         """return Pagination object"""
         query = cls.search.query(query_str)
         query = query.order_by('-@rank', mode=sphapi.SPH_SORT_EXTENDED)
         if producer_id:
-            query=query.filter(producer_id=producer_id)
+            query = query.filter(producer_id=producer_id)
         return Pagination(query, page_num)
+
     def __unicode__(self):
         return self.product_name if self.product_name \
             else self.product_english_name
 
+
 class emailinfo(models.Model):
-    email=models.CharField(max_length=200)
-    url=models.URLField()
+    email = models.CharField(max_length=200)
+    url = models.URLField()
+
     def __unicode__(self):
         return self.email
+
+
 class RegeantItem(DjangoItem):
     django_model = Regeant
+
+
 class emailItem(DjangoItem):
-    django_model=emailinfo
+    django_model = emailinfo

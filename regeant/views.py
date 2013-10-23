@@ -6,7 +6,7 @@
 from django.core.context_processors import csrf
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
-from .models import Regeant,Producer
+from .models import Regeant, Producer
 from .forms import SearchForm
 
 
@@ -16,7 +16,7 @@ def index(request):
         request, {'form': form}))
 
 
-def search(request,target_producer=None):
+def search(request, target_producer=None):
     keyword = request.GET.get('keyword')
     form = SearchForm({'keyword': keyword})
     page_num = int(request.GET.get('page_num', 1))
@@ -26,34 +26,40 @@ def search(request,target_producer=None):
     for res in pagination_original.cur_page:
         producers.add(res.producer)
         providers.update(res.producer.providers.all())
-    pagination = Regeant.page(keyword, page_num=page_num,producer_id=target_producer)
-    producers_in_session=[]
+    pagination = Regeant.page(
+        keyword, page_num=page_num, producer_id=target_producer)
+    producers_in_session = []
     for producer in producers:
-	producers_in_session.append(producer.id)
-    request.session["producers_in_session"]=producers_in_session
+        producers_in_session.append(producer.id)
+        request.session["producers_in_session"] = producers_in_session
     return render_to_response("results.html", RequestContext(
         request, {
             'form': form,
             'keyword': keyword,
             'results': pagination,
             'producer_quant': len(producers),
-	    'producers':producers,
+            'producers': producers,
             'provider_quant': len(providers),
             'res_num': pagination.total}))
 
+
 def producers_provider_all(request):
-    producers=[]
-    producer_ids=request.session.get("producers_in_session",None)
+    producers = []
+    producer_ids = request.session.get("producers_in_session", None)
     if producer_ids:
-	for id in producer_ids:
-	    producer=Producer.objects.get(id=id)
-	    producers.append(producer)
-    c=RequestContext(request,locals())
+        for id in producer_ids:
+            producer = Producer.objects.get(id=id)
+            producers.append(producer)
+    c = RequestContext(request, locals())
     return render_to_response("provideralldetail.html", c)
-def provider_detail(request,producer_pk):
+
+
+def provider_detail(request, producer_pk):
     #print product_pk
-    producer = get_object_or_404(Producer,pk=producer_pk)
-    c=RequestContext(request,locals())
+    producer = get_object_or_404(Producer, pk=producer_pk)
+    c = RequestContext(request, locals())
     return render_to_response("providerdetail.html", c)
+
+
 def private(request):
-    return render_to_response("private.html",RequestContext(request,dict()))
+    return render_to_response("private.html", RequestContext(request, dict()))
