@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block custom_css%}
+{% endblock %}
+{% block custom_js %}
+<script src="/static/js/global.js"></script>
+{% endblock %}
+{% block title%}
+{{product.product_english_name}}{% if product.product_name %}-{{product.product_name}}{% endif %}-{{product.producer.name}}{% if product.cas_no %}-CAS:{{product.cas_no}}{% endif %} 
+{% endblock %}
+{% block body %}
+	<div class="navbar navbar-fixed-top">
+ <div class="navbar-inner">
+ <div class="container">
+ <a class="brand" href="{% url "regeant.views.index"%}"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
+ <form class="navbar-form pull-left">
+     <div class="input-append">
+         <input type="text" class="span4">
+         <button type="submit" class="btn"><i class="icon-search"></i></button>
+       </div>
+ </form>
+   <ul class="nav pull-right">
+   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
+   </ul>
+   </div>
+ </div>
+</div>
+<div class="container">
+<div class="row">
+<div class="span6 offset3">
+<h2>{{product.product_english_name}}</h2>
+<hr>
+</div>
+</div>
+<div class="row">    
+<div class="span3 offset3">
+<p>生产厂家:<a href="{% url "regeant.views.producer_product_list" product.producer.id %}">{{product.producer.name}}</a></p>
+{% if product.product_name%}
+<p>中文名:{{product.product_name}}</p>
+{% endif %}
+<p>产品货号:{{product.product_no}}</p>
+{% if product.cas_no %}
+<p>CAS号:{{product.cas_no}}</p>
+{% endif %}
+<p>产品源地址:<a href="{{product.url_path}}" target="_blank">点击去官方网站查看</a></p>
+<p></p>
+</div>
+<div class="span3">
+<img src="{{product.moleclar_structure_formation_path}}"/>
+</div>
+
+</div>
+{% if product.description %}
+<div class="row">
+<div class="span6 offset3">
+<hr>    
+<h4>产品介绍:</h4>
+{% autoescape off %}
+<p>{{product.description}}</p>
+{% endautoescape %}
+</div>
+</div>
+{% endif %}
+<div class="row">
+<div class="span6 offset3">
+<hr>
+<p>您还可以查看以下其他试剂产品:</p>
+{% for product_related in products_related %}
+<p><a href="{% url "regeant.views.product_detail" product_related.id %}">{{product_related.product_english_name}}</a></p>
+{% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}

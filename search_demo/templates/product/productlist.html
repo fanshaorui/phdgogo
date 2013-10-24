@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block custom_css%}
+{% endblock %}
+{% block custom_js %}
+<script src="/static/js/global.js"></script>
+{% endblock %}
+{% block title%}
+phdgogo.com-{{producer.name}}产品列表
+{% endblock %}
+{% block body %}
+{% load endless %}
+<div class="navbar navbar-fixed-top">
+ <div class="navbar-inner">
+ <div class="container">
+ <a class="brand" href="{% url "regeant.views.index"%}"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
+ <form class="navbar-form pull-left">
+     <div class="input-append">
+         <input type="text" class="span4">
+         <button type="submit" class="btn"><i class="icon-search"></i></button>
+       </div>
+ </form>
+   <ul class="nav pull-right">
+   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
+   </ul>
+   </div>
+ </div>
+</div>
+<div class="container">
+<div class="row">
+<div class="span6 offset3">
+<h2>{{producer.name}}产品列表</h2>
+<p><a href="{% url "regeant.views.producersshow" %}">返回所有供应商列表</a></p>
+<hr>
+</div>
+</div>
+<div class="row">    
+<div class="span6 offset3">
+{% lazy_paginate 300,300 products %}
+{% for product in products %}
+<p><a href="{% url "regeant.views.product_detail" product.id %}" target="_blank">{{product.product_english_name}}</a></p>
+{% endfor %}
+</div>
+</div>
+<div class="row">
+     {% get_pages %}    
+<div class="pagination pagination-centered">   
+  <ul>
+    <li><a href="{{ pages.previous.path }}">上一页</a></li>
+    
+    {% for page in pages %}
+	 {% if not  page.is_current  %}
+    <li><a href="{{ page.path }}">{{page.number}}</a></li>
+    {% else %}
+	 <li class="active"><a href="{{ page.path }}">{{page.number}}</a></li>
+	 {% endif %}
+    {% endfor %}
+    <li><a href="{{ pages.next.path }}">下一页</a></li>
+  </ul>
+</div>
+</div>
+</div>
+{% endblock %}

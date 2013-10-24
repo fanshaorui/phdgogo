@@ -38,12 +38,12 @@ phdgogo-试剂采购搜索
   <div class="navbar-inner">
     <ul class="nav">
       
-      <li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
+      <li><a href="{% url "customer.views.cart_view" %}" rel="nofollow">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
     </ul>
     <ul class="nav pull-right">
-    <li><a href="{% url "providers.views.login_page"%}">供应商</a></li>
-    <li><a href="{% url "regeant.views.private"%}">隐私权政策</a></li>
-    <li><a href="#">全部品牌</a></li>
+    <li><a href="{% url "providers.views.login_page"%}" rel="nofollow">供应商</a></li>
+    <li><a href="{% url "regeant.views.private"%}" rel="nofollow">隐私权政策</a></li>
+    <li><a href="{% url "regeant.views.producersshow" %}" target="_blank">全部品牌</a></li>
     </ul>
   </div>
 </div>
