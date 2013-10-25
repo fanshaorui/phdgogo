@@ -109,7 +109,7 @@ class Regeant(models.Model):
             else self.product_english_name
 
 
-class emailinfo(models.Model):
+class EmailInfo(models.Model):
     email = models.CharField(max_length=200)
     url = models.URLField()
 
@@ -117,9 +117,23 @@ class emailinfo(models.Model):
         return self.email
 
 
+class ScalePriceInfo(models.Model):
+    product = models.ForeignKey(
+        Regeant,
+        related_name='fk_scalepriceinfo_product',
+        null=True,
+        blank=True,
+        default=None)
+    # 可以通过Regeant实例对象的scale_price_info_set来获取试剂的所有规格和价格信息
+    scale_info = models.CharField(max_length=200, blank=True, default="")
+    price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    currency = models.CharField(
+        max_length=50, blank=True, null=True, default=None)
+
+
 class RegeantItem(DjangoItem):
     django_model = Regeant
 
 
 class emailItem(DjangoItem):
-    django_model = emailinfo
+    django_model = EmailInfo

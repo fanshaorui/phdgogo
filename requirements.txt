@@ -4,8 +4,8 @@ Scrapy==0.18.3
 South==0.8.2
 Twisted==13.1.0
 argparse==1.2.1
+django-endless-pagination==2.0
 django-excel-response==1.0
-django-sphinx==2.2.4.2
 gunicorn==18.0
 lxml==3.2.3
 pyOpenSSL==0.13.1
