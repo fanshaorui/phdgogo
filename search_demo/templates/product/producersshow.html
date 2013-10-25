@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block custom_css%}
+{% endblock %}
+{% block custom_js %}
+<script src="/static/js/global.js"></script>
+{% endblock %}
+{% block title%}
+phdgogo.com-所有生产商品牌
+{% endblock %}
+{% block body %}
+<div class="navbar navbar-fixed-top">
+ <div class="navbar-inner">
+ <div class="container">
+ <a class="brand" href="{% url "regeant.views.index"%}"><img src="/static/img/phdgogologo_strip.png" alt="phdgogo.com" id="navlogo"/></a>
+ <form class="navbar-form pull-left">
+     <div class="input-append">
+         <input type="text" class="span4">
+         <button type="submit" class="btn"><i class="icon-search"></i></button>
+       </div>
+ </form>
+   <ul class="nav pull-right">
+   	<li><a href="{% url "customer.views.cart_view" %}">采购清单<span class="badge badge-important">{{request.session.cart|length}}</span></a></li>
+   </ul>
+   </div>
+ </div>
+</div>
+<div class="container">
+<div class="row">
+<div class="span6 offset3">
+<h2>phdgogo所有生产商品牌</h2>
+<hr>
+</div>
+</div>
+<div class="row">    
+<div class="span6 offset3">
+    {% for producer in producers %}
+    <p><img src="{{producer.logo_path}}"><a href="{% url "regeant.views.producer_product_list" producer.id %}">{{producer.name}}</a></p>
+    {% endfor %}
+</div>
+</div>
+<div class="row">
+<div class="span6 offset3">
+<hr>
+<p>推荐产品:</p>
+{% for product_related in products_related %}
+<div><a href="{% url "regeant.views.product_detail" product_related.id %}">{{product_related.product_english_name}}</a></div>
+{% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}

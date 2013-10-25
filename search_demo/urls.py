@@ -14,6 +14,9 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+    url(r'product/all/','regeant.views.producersshow'),#展示所有生产商
+    url(r'product/producer/(\d+)/','regeant.views.producer_product_list'),#生产商产品列表
+    url(r'product/detail/(\d+)/','regeant.views.product_detail'),#产品详情列表
     url(r'^admin/', include(admin.site.urls)),
     url(r'^private/$','regeant.views.private'),#隐私权政策
     url(r'search/(\w+)', 'regeant.views.search'),#搜索结果页

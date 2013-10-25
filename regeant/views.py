@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Create your views here.
-
-
 from django.core.context_processors import csrf
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from .models import Regeant, Producer
 from .forms import SearchForm
+import random
 
 
 def index(request):
@@ -63,3 +61,42 @@ def provider_detail(request, producer_pk):
 
 def private(request):
     return render_to_response("private.html", RequestContext(request, dict()))
+
+
+#显示所有生产商入口
+def producersshow(request):
+    producers = Producer.objects.all()
+    products_related = set()
+    for i in range(1, 50):
+        x = random.randint(5000, 15000)
+    try:
+        product_related = Regeant.objects.get(pk=str(x))
+        products_related.add(product_related)
+    except:
+        continue
+    c = RequestContext(request, locals())
+    return render_to_response("product/producersshow.html", c)
+
+
+#产品详情页
+def product_detail(request, pk):
+    product = Regeant.objects.get(pk=pk)
+    products_related = set()
+    for i in range(1, 10):
+        x = random.randint(int(pk), int(pk) + 100)
+    try:
+        product_related = Regeant.objects.get(pk=str(x))
+        products_related.add(product_related)
+    except:
+        continue
+    #print products_related
+    c = RequestContext(request, locals())
+    return render_to_response("product/productdetail.html", c)
+
+
+#生产商列表页
+def producer_product_list(request, pk):
+    producer = Producer.objects.get(pk=pk)
+    products = Regeant.objects.filter(producer=producer)
+    c = RequestContext(request, locals())
+    return render_to_response("product/productlist.html", c)
