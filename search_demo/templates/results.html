@@ -58,10 +58,38 @@
 			 <!--
                             <p id="muteurl">{{result.url_path}}</p>
 			!-->
-                            <p id="productinfo">{% if result.product_name %}{{result.product_name}} |{% endif %}  {% if result.cas_no %}CAS:{{result.cas_no}} |{% endif %}  {{result.brand.name}}| 货号:{{result.product_no}}</p>
+                            <p id="productinfo">{% if result.product_name %}{{result.product_name}} |{% endif %}  {% if result.cas_no %}CAS:{{result.cas_no}} |{% endif %}  {{result.brand.name}} | 货号:{{result.product_no}} {% if result.fk_scalepriceinfo_product.all %}| <a href="#{{result.id}}" data-toggle="collapse"><i class="icon-search"></i>查看价格</a>{% else %} |  暂无价格信息{% endif %}</p>
+			    			       {% if result.fk_scalepriceinfo_product.all %}
+							 <div class="collapse" id="{{result.id}}">
+							  <table class="table table-hover">
+							   <thead>
+							    <tr>
+							     <td>规格</td>
+							     <td>价格</td>
+							     <td></td>
+							    </tr>
+							   </thead>
+							   <tbody>
+							    {% for info in result.fk_scalepriceinfo_product.all%}
+							    <tr>
+							     <td>{{info.scale_info}}</td>
+							     <td>{{info.price}}{{info.currency}}</td>
+							     <td>
+						    
+							      <a href="{% url "customer.views.add_cart" info.id %}" class="btn btn-small">加入清单</a>
+							  
+							     </td>
+							    </tr>
+							    {% endfor %}
+						      
+							   </tbody>
+							 </table>		
+							 </div>
+							 {% endif %}
 			
                         </div>
                     </div>
+		    <!--
                     <div class="span1">
                     {% if result.id|slugify in request.session.cart %}
                         <a class="btn btn-small disabled">已加清单</a>
@@ -69,22 +97,29 @@
                         <p><a href="{% url "customer.views.add_cart" result.id %}"class="btn btn-small" >加入清单</a></p>
                     {% endif %}
                     </div>
+		    !-->
                 </div>
             </div>
-            <hr>
+		<hr>
 		{% endif %}
+		
         {% endfor %}
+	{% if target_producer %}
+	{% url "regeant.views.search" target_producer.id as searchurl %}
+	{% else %}
+	{% url "regeant.views.search" as searchurl %}
+	{% endif %}
         <div class="pagination">
             <ul>
                 {%if results.has_prev %}
-                    <li><a href="/search/?keyword={{keyword}}&page_num={{results.prev_num}}">Prev</a></li>
+                    <li><a href="{{searchurl}}?keyword={{keyword}}&page_num={{results.prev_num}}">Prev</a></li>
                 {% else %}
                     <li class="disabled"><a href="javascript:void(0);">Prev</a></li>
                 {% endif%}
                 {% for page in results.iter_pages %}
                     {% if page %}
                         {% if page != results.pagenum %}
-                        <li><a href="/search/?keyword={{keyword}}&page_num={{page}}">{{page}}</a></li>
+                        <li><a href="{{searchurl}}?keyword={{keyword}}&page_num={{page}}">{{page}}</a></li>
                         {% else %}
                         <li class="active"><a href="javascript:void(0);">{{page}}</a></li>
                         {% endif %}
@@ -93,7 +128,7 @@
                     {% endif %}
                 {% endfor %}
                 {%if results.has_next %}
-                    <li><a href="/search/?keyword={{keyword}}&page_num={{results.next_num}}">Next</a></li>
+                    <li><a href="{{searchurl}}?keyword={{keyword}}&page_num={{results.next_num}}">Next</a></li>
                 {% else %}
                     <li class="disabled"><a href="javascript:void(0);">Next</a></li>
                 {% endif%}

@@ -40,28 +40,39 @@ phdgogo-试剂采购搜索-采购清单
    <tr>
 <td>生产公司</td>
 <td>产品名称</td>
-<td>货号</td>
-<td>供应商信息</td>
+<td>规格</td>
+<td>单价</td>
+<td>数量</td>
 </tr>
 </thead>
 <tbody>
-	{% for product in products %}
+	{% for sku in skus %}
 <tr>
-<td>{{ product.producer.name }}</td>
-<td><a href="{{ product.url_path }}">{{ product.product_english_name }}</a></td>
-<td>{{ product.product_no }}</td>
-<td><a href="{% url "regeant.views.provider_detail" product.producer.id %}">点击查看</a></td>
+<td><a href="{% url "regeant.views.provider_detail" sku.sku.product.producer.id %}">{{ sku.sku.product.producer.name }}</a></td>
+<td><a href="{{ sku.sku.product.url_path }}">{{ sku.sku.product.product_english_name }}</a></td>
+<td>{{ sku.sku.scale_info }}</td>
+<td>{{sku.sku.price}}{{sku.sku.currency}}</td>
+<form method="POST" action="{% url "customer.views.update_sku" sku.sku.id %}">
+{% csrf_token %}
+
+<td><input class="span1" name="quatity" value="{{sku.quatity}}" />    <input type="submit" value="更新" class="btn btn-small"></td>
+
+</form>
 </tr>
 	{% endfor %}
 </tbody>
 </table>
 <hr>
 <div class="row">
-<div class="span3">
+<div class="span2">
+
 <a href="{% url "customer.views.clean_cart" %}" class="btn btn-warning">清空采购清单</a>
 </div>
-<div class="span3">
+<div class="span2">
 <a href="{% url "customer.views.excelview" %}" class="btn btn-success">生成采购清单Excel</a>
+</div>
+<div class="span2">
+ 总价:{{price}}元
 </div>
 </div>
 </div>

@@ -29,8 +29,9 @@ urlpatterns = patterns('',
     url(r'^accounts/login_page/$','providers.views.login_page'),#供应商登陆
     url(r'^providers/register/$','providers.views.register'),#供应商注册
     url(r'customer/cart/view/','customer.views.cart_view'),#用户采购清单
-    url(r'^customer/cart/add/(\d+)/$','customer.views.add_cart'),#采购清单添加
+    url(r'^customer/cart/add/(\w+)/$','customer.views.add_cart'),#采购清单添加
     url(r'customer/cart/clean/','customer.views.clean_cart'),#清空采购清单
     url(r'customer/cart/excel/','customer.views.excelview'),#采购清单导出excel
+    url(r'customer/cart/update/(\w+)/','customer.views.update_sku'),#修改单项试剂个数
     url(r'', 'regeant.views.index'),#首页
 )

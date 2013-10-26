@@ -38,7 +38,8 @@ def search(request, target_producer=None):
             'producer_quant': len(producers),
             'producers': producers,
             'provider_quant': len(providers),
-            'res_num': pagination.total}))
+            'res_num': pagination.total,
+            'target_producer'=target_produce}))
 
 
 def producers_provider_all(request):

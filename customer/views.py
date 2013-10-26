@@ -8,7 +8,8 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from excel_response import ExcelResponse
 def cart_view(request):
-	print "cart"
+	#print "cart"
+	price=0
 	cart=request.session.get("cart",None)
 	cart_list=[]
 	if not cart:
@@ -16,10 +17,16 @@ def cart_view(request):
 		request.session["cart"]=cart
 	else:
 		cart_list=request.session["cart"]
-		products=[]
-		for pk in cart_list:
-			product=Regeant.objects.get(pk=pk)
-			products.append(product)
+		skus=[]
+		for regeant in cart_list:
+			sku=ScalePriceInfo.objects.get(pk=regeant["sku"])
+			sku_dict={"sku":sku,"quatity":regeant["quatity"]}
+			if sku.currency=="RMB":
+				price=price+int(sku.price)*int(regeant["quatity"])
+			elif sku.currency=="USD":
+				price=price+6.08*int(sku.price)*int(regeant["quatity"])
+			#print sku_dict
+			skus.append(sku_dict)
 	c=RequestContext(request,locals())
 	return render_to_response("customer/cart.html",c)
 
@@ -27,13 +34,16 @@ def add_cart(request,pk):
 	cart=request.session.get("cart",None)
 	if not cart:
 		cart=[]
-		cart.append(pk)
+		sku={"sku":pk,"quatity":1}
+		cart.append(sku)
 		request.session["cart"]=cart
 	else:
-		for pk_cart in cart:
-			if pk==pk_cart:
+		for sku_cart in cart:
+			if pk==sku_cart["sku"]:
 				return cart_view(request)
-		cart.append(pk)
+		sku={"sku":pk,"quatity":1}
+		cart.append(sku)
+		cart.sort(cmp=lambda x,y:cmp(x["sku"],y["sku"]))
 		request.session["cart"]=cart
 		print "here"
 	return cart_view(request)
@@ -44,21 +54,45 @@ def clean_cart(request):
 	c=RequestContext(request,locals())
 	return render_to_response("customer/cart.html",c)
 
+def update_sku(request,pk):
+	cart=request.session.get("cart",None)
+	if request.method=="POST":
+		for item in cart:
+			if item["sku"]==pk:
+				cart.remove(item)
+				item["quatity"]=request.POST["quatity"]
+				print item
+				cart.append(item)
+				request.session["cart"]=cart
+				cart.sort(cmp=lambda x,y:cmp(x["sku"],y["sku"]))
+	return HttpResponseRedirect(reverse("customer.views.cart_view"))
+	
 
 def excelview(request):
+	price=0
 	cart=request.session.get("cart",None)
 	cart_list=[]
-	products=[["药品名称","公司","产品货号","个数","规格","价格","订购时间","订购人"]]
+	skus=[["药品名称","公司","产品货号","个数","规格","价格","订购时间","订购人"]]
 	if not cart:
 		cart=[]
 		request.session["cart"]=cart
 	else:
 		cart_list=request.session["cart"]
-		for pk in cart_list:
-			product=Regeant.objects.get(pk=pk)
+		for product in cart_list:
+			sku_info=ScalePriceInfo.objects.get(pk=product["sku"])
 			product_info=[]
-			product_info.append(product.product_english_name)
-			product_info.append(product.producer.name)
-			product_info.append(product.product_no)
-			products.append(product_info)
-	return ExcelResponse(products,"定试剂清单")
+			product_info.append(sku_info.product.product_english_name)
+			product_info.append(sku_info.product.producer.name)
+			product_info.append(sku_info.product.product_no)
+			product_info.append(product["quatity"])
+			product_info.append(sku_info.scale_info)
+			product_info.append(str(sku_info.price)+str(sku_info.currency))
+			if sku_info.currency=="RMB":
+				price=price+int(sku_info.price)*int(product["quatity"])
+			elif sku_info.currency=="USD":
+				price=price+6.08*int(sku_info.price)*int(product["quatity"])
+			skus.append(product_info)
+		product_info=[]
+		product_info.append("总价:"+str(price))
+		skus.append(product_info)
+	return ExcelResponse(skus,"定试剂清单")
