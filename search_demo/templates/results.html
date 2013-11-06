@@ -55,9 +55,9 @@
                             <a href="{{result.url_path}}" target="_blank">{{result.product_english_name}}</a>
                         </div>
                         <div>
-			 <!--
-                            <p id="muteurl">{{result.url_path}}</p>
-			!-->
+			{% autoescape on %}
+                            <p id="muteurl">{{result.description|truncatewords:30}}</p>
+		       {% endautoescape %}
                             <p id="productinfo">{% if result.product_name %}{{result.product_name}} |{% endif %}  {% if result.cas_no %}CAS:{{result.cas_no}} |{% endif %}  {{result.brand.name}} | 货号:{{result.product_no}} {% if result.fk_scalepriceinfo_product.all %}| <a href="#{{result.id}}" data-toggle="collapse"><i class="icon-search"></i>查看价格</a>{% else %} |  暂无价格信息{% endif %}</p>
 			    			       {% if result.fk_scalepriceinfo_product.all %}
 							 <div class="collapse" id="{{result.id}}">
